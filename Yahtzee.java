@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 public class Yahtzee
 {
-    
+
     private  Die6[] dice;
     Die6 die1;
     Die6 die2;
@@ -27,24 +27,20 @@ public class Yahtzee
         die3 = new Die6();
         die4 = new Die6();
         die5 = new Die6();
-        
+
+        dice = new Die6[]{die1, die2, die3, die4, die5};
+
     }
-    
+
     public void roll() {
-        die1.roll();
-        die2.roll();
-        die3.roll();
-        die4.roll();
-        die5.roll();
+        for (Die6 die : dice) {
+            die.roll();
+        }
     }
-    
-        public void roll(int dieNumber) {
+
+    public void roll(int dieNumber) {
         if (dieNumber >= 1 && dieNumber <= 5) {
-            die1.roll();
-            die2.roll();
-            die3.roll();
-            die4.roll();
-            die5.roll();
+            dice[dieNumber - 1].roll();
         } else {
             System.exit(0);
         }
@@ -52,8 +48,8 @@ public class Yahtzee
 
     public String summarize() {
         int[] counts = new int[6];
-        for (Die6 die : new Die6[]{die1, die2, die3, die4, die5}) {
-            counts[die.getValue() - 1]++;
+        for (Die6 dice : new Die6[]{die1, die2, die3, die4, die5}) {
+            counts[dice.getValue() - 1]++;
         }
 
         StringBuilder summary = new StringBuilder();
@@ -68,7 +64,7 @@ public class Yahtzee
     }
 
     public String toString() {
-        return "Dice values: " + Arrays.toString(dice);
+        return "Dice values: " + Arrays.toString(Arrays.stream(dice).mapToInt(Die6::getValue).toArray());
     }
 
 }
